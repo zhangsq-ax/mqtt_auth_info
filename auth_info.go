@@ -52,7 +52,7 @@ type MQTTAuthInfo struct {
 }
 
 func (a *MQTTAuthInfo) GetClient(authType AuthType, onConnect mqtt.OnConnectHandler, onConnectionLost mqtt.ConnectionLostHandler) mqtt.Client {
-	connectOpts := a.getConnectOptions(authType)
+	connectOpts := a.GetConnectOptions(authType)
 	return getClient(connectOpts, onConnect, onConnectionLost)
 }
 
@@ -67,7 +67,7 @@ func UpdateToken(client mqtt.Client, tokenInfo *TokenInfo) error {
 	return err
 }
 
-func (a *MQTTAuthInfo) getConnectOptions(authType AuthType) *ConnectOptions {
+func (a *MQTTAuthInfo) GetConnectOptions(authType AuthType) *ConnectOptions {
 	port := a.standardPort(a.Port)
 	clientId := fmt.Sprintf("%s@@@%s", a.GroupID, a.ClientID)
 	broker := fmt.Sprintf("%s://%s:%d", a.Protocol, a.Host, port)
